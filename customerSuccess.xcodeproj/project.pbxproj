@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D345593E2B974266004E97EF /* projectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345593D2B974266004E97EF /* projectTableViewCell.swift */; };
 		D3FA70272B95A34800E71521 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FA70262B95A34800E71521 /* AppDelegate.swift */; };
 		D3FA70292B95A34800E71521 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FA70282B95A34800E71521 /* SceneDelegate.swift */; };
 		D3FA702B2B95A34800E71521 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FA702A2B95A34800E71521 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D345593D2B974266004E97EF /* projectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectTableViewCell.swift; sourceTree = "<group>"; };
 		D3FA70232B95A34800E71521 /* customerSuccess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = customerSuccess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3FA70262B95A34800E71521 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3FA70282B95A34800E71521 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				D3FA70262B95A34800E71521 /* AppDelegate.swift */,
 				D3FA70282B95A34800E71521 /* SceneDelegate.swift */,
 				D3FA702A2B95A34800E71521 /* ViewController.swift */,
+				D345593D2B974266004E97EF /* projectTableViewCell.swift */,
 				D3FA703A2B95CA8E00E71521 /* TitleTableViewCell.swift */,
 				D3FA703B2B95CA8E00E71521 /* TitleTableViewCell.xib */,
 				D3FA702C2B95A34800E71521 /* Main.storyboard */,
@@ -145,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D345593E2B974266004E97EF /* projectTableViewCell.swift in Sources */,
 				D3FA703C2B95CA8E00E71521 /* TitleTableViewCell.swift in Sources */,
 				D3FA702B2B95A34800E71521 /* ViewController.swift in Sources */,
 				D3FA70272B95A34800E71521 /* AppDelegate.swift in Sources */,
