@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var subLbl: UILabel!
     @IBOutlet weak var mainLbl: UILabel!
     @IBOutlet weak var profileImg: UIImageView!
-    var titleNames = ["New Project","Projects","Project Manager","Employees","Setting"]
-    var images = ["add","office-bag","person","employees","settings"]
+    var titleNames = ["Projects","Project Manager","Employees","Setting"]
+    var images = ["office-bag","person","employees","settings"]
     var projectName = ["Project Name","Food on Time","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01"]
     var startedOn = ["Started On","12 Feb 24","1 Jan 24","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for..."]
     var status = ["Status","On going","Closed","In progress","In progress","In progress","Hold","In progress","In progress","Closed","Closed","Closed"]
@@ -75,6 +75,10 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func newProjectTapped(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "projectDetailsScreen") as! projectDetailsViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
