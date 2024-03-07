@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D345593E2B974266004E97EF /* projectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345593D2B974266004E97EF /* projectTableViewCell.swift */; };
+		D3CB3C432B99F2CE0079F0A3 /* specificProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB3C422B99F2CE0079F0A3 /* specificProjectViewController.swift */; };
 		D3EEA0A32B98395400537851 /* projectDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEA0A22B98395400537851 /* projectDetailsViewController.swift */; };
 		D3EEA0A52B9870C800537851 /* inviteClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEA0A42B9870C800537851 /* inviteClientViewController.swift */; };
 		D3EEA0A72B9892E900537851 /* selectProjectMangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEA0A62B9892E900537851 /* selectProjectMangerViewController.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		D345593D2B974266004E97EF /* projectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectTableViewCell.swift; sourceTree = "<group>"; };
+		D3CB3C422B99F2CE0079F0A3 /* specificProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = specificProjectViewController.swift; sourceTree = "<group>"; };
 		D3EEA0A22B98395400537851 /* projectDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectDetailsViewController.swift; sourceTree = "<group>"; };
 		D3EEA0A42B9870C800537851 /* inviteClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inviteClientViewController.swift; sourceTree = "<group>"; };
 		D3EEA0A62B9892E900537851 /* selectProjectMangerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectProjectMangerViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				D3EEA0A22B98395400537851 /* projectDetailsViewController.swift */,
 				D3EEA0A42B9870C800537851 /* inviteClientViewController.swift */,
 				D3EEA0A62B9892E900537851 /* selectProjectMangerViewController.swift */,
+				D3CB3C422B99F2CE0079F0A3 /* specificProjectViewController.swift */,
 			);
 			path = customerSuccess;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				D345593E2B974266004E97EF /* projectTableViewCell.swift in Sources */,
 				D3FA703C2B95CA8E00E71521 /* TitleTableViewCell.swift in Sources */,
 				D3EEA0A72B9892E900537851 /* selectProjectMangerViewController.swift in Sources */,
+				D3CB3C432B99F2CE0079F0A3 /* specificProjectViewController.swift in Sources */,
 				D3FA702B2B95A34800E71521 /* ViewController.swift in Sources */,
 				D3FA70272B95A34800E71521 /* AppDelegate.swift in Sources */,
 				D3EEA0A52B9870C800537851 /* inviteClientViewController.swift in Sources */,

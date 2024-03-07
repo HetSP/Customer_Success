@@ -10,6 +10,9 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var sortCount = 0
+    @IBOutlet weak var sortButton: UIButton!
+    @IBOutlet weak var tblLbl: UILabel!
     @IBOutlet weak var projectTableView: UITableView!
     @IBOutlet weak var mainScrollView: UIScrollView!
     @IBOutlet weak var subLbl: UILabel!
@@ -75,6 +78,22 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func sortTapped(_ sender: UIButton) {
+        sortCount += 1
+        if (sortCount % 4 == 0) {
+            tblLbl.text = "All projects"
+        }
+        else if(sortCount % 4 == 1){
+            tblLbl.text = "In progress & On going"
+        }
+        else if(sortCount % 4 == 2){
+            tblLbl.text = "Closed"
+        }
+        else{
+            tblLbl.text = "Hold"
+        }
+        projectTableView.reloadData()
+    }
     @IBAction func newProjectTapped(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "projectDetailsScreen") as! projectDetailsViewController
         self.navigationController?.pushViewController(vc, animated: true)
@@ -100,27 +119,113 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }else{
             let cell = projectTableView.dequeueReusableCell(withIdentifier: "cell") as! projectTableViewCell
-            cell.column1.text = projectName[indexPath.row]
-            cell.column2.text = startedOn[indexPath.row]
-            cell.column3.text = status[indexPath.row]
-            if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
-                cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
-                cell.column3.textColor = UIColor.white
-            } else if status[indexPath.row] == "Closed" {
-                    cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
-                cell.column3.textColor = UIColor.white
-                } else if status[indexPath.row] == "Hold" {
-                    cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
+            if (sortCount % 4 == 0){
+                let cell = projectTableView.dequeueReusableCell(withIdentifier: "cell") as! projectTableViewCell
+                cell.column1.text = projectName[indexPath.row]
+                cell.column2.text = startedOn[indexPath.row]
+                cell.column3.text = status[indexPath.row]
+                if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
+                    cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
-                } else {
-                    cell.column3.backgroundColor = UIColor.white
+                } else if status[indexPath.row] == "Closed" {
+                        cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
+                    cell.column3.textColor = UIColor.white
+                    } else if status[indexPath.row] == "Hold" {
+                        cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
+                        cell.column3.textColor = UIColor.white
+                    } else {
+                        cell.column3.backgroundColor = UIColor.white
+                        cell.column3.textColor = UIColor.black
+                    }
+                cell.column4.text = pm[indexPath.row]
+                cell.column5.text = members[indexPath.row]
+                return cell
+            }else if(sortCount % 4 == 1){
+                let cell = projectTableView.dequeueReusableCell(withIdentifier: "cell") as! projectTableViewCell
+                if status[indexPath.row] == "In progress" || status[indexPath.row] == "On going" || status[indexPath.row] == "Status" {
+                    cell.column1.text = projectName[indexPath.row]
+                    cell.column2.text = startedOn[indexPath.row]
+                    cell.column3.text = status[indexPath.row]
+                    if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
+                        cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
+                        cell.column3.textColor = UIColor.white
+                    } else if status[indexPath.row] == "Closed" {
+                            cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
+                        cell.column3.textColor = UIColor.white
+                        } else if status[indexPath.row] == "Hold" {
+                            cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
+                            cell.column3.textColor = UIColor.white
+                        } else {
+                            cell.column3.backgroundColor = UIColor.white
+                            cell.column3.textColor = UIColor.black
+                        }
+                    cell.column4.text = pm[indexPath.row]
+                    cell.column5.text = members[indexPath.row]
+                    return cell
+                }else{
+                    return UITableViewCell()
                 }
-            cell.column4.text = pm[indexPath.row]
-            cell.column5.text = members[indexPath.row]
-            return cell
+                
+            }else if(sortCount % 4 == 2){
+                let cell = projectTableView.dequeueReusableCell(withIdentifier: "cell") as! projectTableViewCell
+                if status[indexPath.row] == "Closed" || status[indexPath.row] == "Status" {
+                    cell.column1.text = projectName[indexPath.row]
+                    cell.column2.text = startedOn[indexPath.row]
+                    cell.column3.text = status[indexPath.row]
+                    if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
+                        cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
+                        cell.column3.textColor = UIColor.white
+                    } else if status[indexPath.row] == "Closed" {
+                            cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
+                        cell.column3.textColor = UIColor.white
+                        } else if status[indexPath.row] == "Hold" {
+                            cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
+                            cell.column3.textColor = UIColor.white
+                        } else {
+                            cell.column3.backgroundColor = UIColor.white
+                            cell.column3.textColor = UIColor.black
+                        }
+                    cell.column4.text = pm[indexPath.row]
+                    cell.column5.text = members[indexPath.row]
+                    return cell
+                }else{
+                    return UITableViewCell()
+                }
+                
+            }else{
+                let cell = projectTableView.dequeueReusableCell(withIdentifier: "cell") as! projectTableViewCell
+                if status[indexPath.row] == "Hold" || status[indexPath.row] == "Status" {
+                    cell.column1.text = projectName[indexPath.row]
+                    cell.column2.text = startedOn[indexPath.row]
+                    cell.column3.text = status[indexPath.row]
+                    if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
+                        cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
+                        cell.column3.textColor = UIColor.white
+                    } else if status[indexPath.row] == "Closed" {
+                            cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
+                        cell.column3.textColor = UIColor.white
+                        } else if status[indexPath.row] == "Hold" {
+                            cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
+                            cell.column3.textColor = UIColor.white
+                        } else {
+                            cell.column3.backgroundColor = UIColor.white
+                            cell.column3.textColor = UIColor.black
+                        }
+                    cell.column4.text = pm[indexPath.row]
+                    cell.column5.text = members[indexPath.row]
+                    return cell
+                }else{
+                    return UITableViewCell()
+                }
+            }
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "specificProjectScreen") as! specificProjectViewController
+        vc.projectName = projectName[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
