@@ -36,9 +36,9 @@ let project10 = Project(name: "2023-01-01", date: "Placeholder for...", status: 
 let project11 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
 let project12 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
 var projects: [Project] = [project1, project2, project3, project4, project5, project6, project7, project8, project9, project10, project11, project12]
-let ongoingProjects = projects.filter { $0.status == "In progress" || $0.status == "On going" }
-let closedProjects = projects.filter { $0.status == "Closed" }
-let holdProjects = projects.filter { $0.status == "Hold" }
+let ongoingProjects = projects.filter { $0.status == "In progress" || $0.status == "On going" || $0.status == "Status" }
+let closedProjects = projects.filter { $0.status == "Closed" || $0.status == "Status"}
+let holdProjects = projects.filter { $0.status == "Hold" || $0.status == "Status"}
 
 
 class ViewController: UIViewController {
@@ -54,18 +54,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var profileImg: UIImageView!
     var titleNames = ["Projects","Project Manager","Employees","Setting"]
     var images = ["office-bag","person","employees","settings"]
-    
-//    var projectName = ["Project Name","Food on Time","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01","2023-01-01"]
-//    var startedOn = ["Started On","12 Feb 24","1 Jan 24","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for...","Placeholder for..."]
-//    var status = ["Status","On going","Closed","In progress","In progress","In progress","Hold","In progress","In progress","Closed","Closed","Closed"]
-//    var pm = ["Project Manager","Dipa Manjumdar","Dipa Manjumdar","Dipa Manjumdar","Dipa Manjumdar","Rohit Shah","Rohit Shah","Rohit Shah","Rohit Shah","Rohit Shah","Rohit Shah","Rohit Shah"]
-//    var members = ["Members","6","12","14","4","30","20","13","9","100","100","100"]
     @IBOutlet weak var tableView1: UITableView!
     @IBOutlet weak var conatainerView: UIView!
     var viewOpen:Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.        registerTableCells()
+        registerTableCells()
         self.conatainerView.isHidden = true
         viewOpen = false
         searchBar.alpha = 1
@@ -207,30 +201,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.column4.text = project.manager
                 cell.column5.text = project.members
                 return cell
-//                if status[indexPath.row] == "In progress" || status[indexPath.row] == "On going" || status[indexPath.row] == "Status" {
-//                    cell.column1.text = projectName[indexPath.row]
-//                    cell.column2.text = startedOn[indexPath.row]
-//                    cell.column3.text = status[indexPath.row]
-//                    if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
-//                        cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
-//                        cell.column3.textColor = UIColor.white
-//                    } else if status[indexPath.row] == "Closed" {
-//                            cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
-//                        cell.column3.textColor = UIColor.white
-//                        } else if status[indexPath.row] == "Hold" {
-//                            cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
-//                            cell.column3.textColor = UIColor.white
-//                        } else {
-//                            cell.column3.backgroundColor = UIColor.white
-//                            cell.column3.textColor = UIColor.black
-//                        }
-//                    cell.column4.text = pm[indexPath.row]
-//                    cell.column5.text = members[indexPath.row]
-//                    return cell
-//                }else{
-//                    return UITableViewCell()
-//                }
-                
             }else if(sortCount % 4 == 2){
                 let project = closedProjects[indexPath.row]
                 cell.column1.text = project.name
@@ -252,30 +222,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.column4.text = project.manager
                 cell.column5.text = project.members
                 return cell
-//                if status[indexPath.row] == "Closed" || status[indexPath.row] == "Status" {
-//                    cell.column1.text = projectName[indexPath.row]
-//                    cell.column2.text = startedOn[indexPath.row]
-//                    cell.column3.text = status[indexPath.row]
-//                    if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
-//                        cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
-//                        cell.column3.textColor = UIColor.white
-//                    } else if status[indexPath.row] == "Closed" {
-//                            cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
-//                        cell.column3.textColor = UIColor.white
-//                        } else if status[indexPath.row] == "Hold" {
-//                            cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
-//                            cell.column3.textColor = UIColor.white
-//                        } else {
-//                            cell.column3.backgroundColor = UIColor.white
-//                            cell.column3.textColor = UIColor.black
-//                        }
-//                    cell.column4.text = pm[indexPath.row]
-//                    cell.column5.text = members[indexPath.row]
-//                    return cell
-//                }else{
-//                    return UITableViewCell()
-//                }
-                
             }else{
                 let project = holdProjects[indexPath.row]
                 cell.column1.text = project.name
@@ -297,29 +243,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.column4.text = project.manager
                 cell.column5.text = project.members
                 return cell
-//                if status[indexPath.row] == "Hold" || status[indexPath.row] == "Status" {
-//                    cell.column1.text = projectName[indexPath.row]
-//                    cell.column2.text = startedOn[indexPath.row]
-//                    cell.column3.text = status[indexPath.row]
-//                    if status[indexPath.row] == "On going" || status[indexPath.row] == "In progress" {
-//                        cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
-//                        cell.column3.textColor = UIColor.white
-//                    } else if status[indexPath.row] == "Closed" {
-//                            cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
-//                        cell.column3.textColor = UIColor.white
-//                        } else if status[indexPath.row] == "Hold" {
-//                            cell.column3.backgroundColor = UIColor(red: 50, green: 51, blue: 56)
-//                            cell.column3.textColor = UIColor.white
-//                        } else {
-//                            cell.column3.backgroundColor = UIColor.white
-//                            cell.column3.textColor = UIColor.black
-//                        }
-//                    cell.column4.text = pm[indexPath.row]
-//                    cell.column5.text = members[indexPath.row]
-//                    return cell
-//                }else{
-//                    return UITableViewCell()
-//                }
             }
         }
     }
@@ -327,7 +250,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == projectTableView{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "specificProjectScreen") as! specificProjectViewController
-//            vc.projectName = projectName[indexPath.row]
+            let project = projects[indexPath.row]
+            vc.projectName = project.name
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D345593E2B974266004E97EF /* projectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345593D2B974266004E97EF /* projectTableViewCell.swift */; };
+		D34DB4672B9C5DD300E372A0 /* commonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34DB4662B9C5DD300E372A0 /* commonTableViewCell.swift */; };
+		D34DB4692B9C87D800E372A0 /* commonTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34DB4682B9C87D800E372A0 /* commonTableViewCell2.swift */; };
+		D34DB46B2B9C886C00E372A0 /* commonTableViewCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34DB46A2B9C886C00E372A0 /* commonTableViewCell3.swift */; };
 		D3CB3C432B99F2CE0079F0A3 /* specificProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB3C422B99F2CE0079F0A3 /* specificProjectViewController.swift */; };
 		D3EEA0A32B98395400537851 /* projectDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEA0A22B98395400537851 /* projectDetailsViewController.swift */; };
 		D3EEA0A52B9870C800537851 /* inviteClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EEA0A42B9870C800537851 /* inviteClientViewController.swift */; };
@@ -24,6 +27,9 @@
 
 /* Begin PBXFileReference section */
 		D345593D2B974266004E97EF /* projectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectTableViewCell.swift; sourceTree = "<group>"; };
+		D34DB4662B9C5DD300E372A0 /* commonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commonTableViewCell.swift; sourceTree = "<group>"; };
+		D34DB4682B9C87D800E372A0 /* commonTableViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commonTableViewCell2.swift; sourceTree = "<group>"; };
+		D34DB46A2B9C886C00E372A0 /* commonTableViewCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commonTableViewCell3.swift; sourceTree = "<group>"; };
 		D3CB3C422B99F2CE0079F0A3 /* specificProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = specificProjectViewController.swift; sourceTree = "<group>"; };
 		D3EEA0A22B98395400537851 /* projectDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectDetailsViewController.swift; sourceTree = "<group>"; };
 		D3EEA0A42B9870C800537851 /* inviteClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inviteClientViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +90,9 @@
 				D3EEA0A42B9870C800537851 /* inviteClientViewController.swift */,
 				D3EEA0A62B9892E900537851 /* selectProjectMangerViewController.swift */,
 				D3CB3C422B99F2CE0079F0A3 /* specificProjectViewController.swift */,
+				D34DB4662B9C5DD300E372A0 /* commonTableViewCell.swift */,
+				D34DB4682B9C87D800E372A0 /* commonTableViewCell2.swift */,
+				D34DB46A2B9C886C00E372A0 /* commonTableViewCell3.swift */,
 			);
 			path = customerSuccess;
 			sourceTree = "<group>";
@@ -160,12 +169,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D34DB4672B9C5DD300E372A0 /* commonTableViewCell.swift in Sources */,
+				D34DB4692B9C87D800E372A0 /* commonTableViewCell2.swift in Sources */,
 				D345593E2B974266004E97EF /* projectTableViewCell.swift in Sources */,
 				D3FA703C2B95CA8E00E71521 /* TitleTableViewCell.swift in Sources */,
 				D3EEA0A72B9892E900537851 /* selectProjectMangerViewController.swift in Sources */,
 				D3CB3C432B99F2CE0079F0A3 /* specificProjectViewController.swift in Sources */,
 				D3FA702B2B95A34800E71521 /* ViewController.swift in Sources */,
 				D3FA70272B95A34800E71521 /* AppDelegate.swift in Sources */,
+				D34DB46B2B9C886C00E372A0 /* commonTableViewCell3.swift in Sources */,
 				D3EEA0A52B9870C800537851 /* inviteClientViewController.swift in Sources */,
 				D3FA70292B95A34800E71521 /* SceneDelegate.swift in Sources */,
 				D3EEA0A32B98395400537851 /* projectDetailsViewController.swift in Sources */,

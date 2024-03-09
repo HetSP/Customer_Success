@@ -15,20 +15,29 @@ class specificProjectViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var purpose: UITextView!
     @IBOutlet weak var projectbrief: UITextView!
     
+    @IBOutlet weak var tblView3: UITableView!
+    @IBOutlet weak var tblView2: UITableView!
+    @IBOutlet weak var tblView1: UITableView!
     @IBOutlet weak var projectscope: UITextView!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var dropButton: UIButton!
     @IBOutlet var navigationButtons: [UIButton]!
     
-    
+    var initiallySelectedButtonIndex: Int = 0
+    @IBOutlet weak var emview: UIView!
     @IBOutlet weak var ssview: UIView!
     @IBOutlet weak var poview: UIView!
     var technologies = ["Backend","Front-end","Mobile app","Database"]
+    
+    var escalationLevel = ["Escalation matrix","Level1","Level2","Level3"]
+    var name = ["Name","Dipa Manjumdar","Dipa Manjumdar","Dipa Manjumdar"]
+    var role = ["Role","Project Manager","Project Manager","Project Manager"]
     override func viewDidLoad() {
         super.viewDidLoad()
         mainLbl.text = projectName
         poview.alpha = 1
         ssview.alpha = 0
+        emview.alpha = 0
         tblView.isHidden = true
         dropButton.layer.cornerRadius = 5
         dropButton.layer.borderWidth = 1
@@ -79,6 +88,10 @@ class specificProjectViewController: UIViewController, UITextViewDelegate {
         projectscope.font = UIFont(name: "verdana", size: 13.0)
         projectscope.delegate = self
         
+        if initiallySelectedButtonIndex < navigationButtons.count {
+                    let initiallySelectedButton = navigationButtons[initiallySelectedButtonIndex]
+                    initiallySelectedButton.backgroundColor = UIColor(red: 204, green: 229, blue: 255)
+                }
         for button in navigationButtons {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(buttonTapped(_:)))
             button.addGestureRecognizer(tapGesture)
@@ -90,11 +103,34 @@ class specificProjectViewController: UIViewController, UITextViewDelegate {
             button.backgroundColor = UIColor.white
         }
         tappedButton.backgroundColor = UIColor(red: 204, green: 229, blue: 255)
+        if let title = tappedButton.titleLabel?.text {
+            if(title == "Stack & scope"){
+                poview.alpha = 0
+                ssview.alpha = 1
+                emview.alpha = 0
+            }else if (title == "Escalation matrix"){
+                poview.alpha = 0
+                ssview.alpha = 0
+                emview.alpha = 1
+            }else if (title == "Project overview"){
+                poview.alpha = 1
+                ssview.alpha = 0
+                emview.alpha = 0
+            }
+            }
     }
 
     @IBAction func pocontinue(_ sender: UIButton) {
         poview.alpha = 0
         ssview.alpha = 1
+        emview.alpha = 0
+    }
+    
+    
+    @IBAction func sscontinue(_ sender: UIButton) {
+        poview.alpha = 0
+        ssview.alpha = 0
+        emview.alpha = 1
     }
     @IBAction func dropButtonTapped(_ sender: UIButton) {
         if tblView.isHidden{
@@ -133,13 +169,44 @@ class specificProjectViewController: UIViewController, UITextViewDelegate {
 
 extension specificProjectViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return technologies.count
+        if tableView == tblView{
+            return technologies.count
+        }
+        else{
+            return escalationLevel.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "techcell", for: indexPath)
-        cell.textLabel?.text = technologies[indexPath.row]
-        return cell
+        if tableView == tblView{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "techcell", for: indexPath)
+            cell.textLabel?.text = technologies[indexPath.row]
+            return cell
+        }
+        else if(tableView == tblView1){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellone") as! commonTableViewCell1
+            cell.column1.text = escalationLevel[indexPath.row]
+            cell.column2.text = name[indexPath.row]
+            cell.column3.text = role[indexPath.row]
+            return cell
+        }
+        else if(tableView == tblView2){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "celltwo") as! commonTableViewCell2
+            cell.column1.text = escalationLevel[indexPath.row]
+            cell.column2.text = name[indexPath.row]
+            cell.column3.text = role[indexPath.row]
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellthree") as! commonTableViewCell3
+            cell.column1.text = escalationLevel[indexPath.row]
+            cell.column2.text = name[indexPath.row]
+            cell.column3
+                
+                
+                .text = role[indexPath.row]
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
