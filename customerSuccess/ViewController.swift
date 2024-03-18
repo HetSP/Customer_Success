@@ -23,7 +23,6 @@ class Project {
     }
 }
 
-let project1 = Project(name: "Project Name", date: "Started On", status: "Status", manager: "Project Manager", members: "Members")
 let project2 = Project(name: "Food on Time", date: "12 Feb 24", status: "On going", manager: "Dipa Manjumdar", members: "6")
 let project3 = Project(name: "2023-01-01", date: "1 Jan 24", status: "Closed", manager: "Dipa Manjumdar", members: "12")
 let project4 = Project(name: "2023-01-01", date: "Placeholder for...", status: "In progress", manager: "Dipa Manjumdar", members: "14")
@@ -35,7 +34,7 @@ let project9 = Project(name: "2023-01-01", date: "Placeholder for...", status: "
 let project10 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
 let project11 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
 let project12 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
-var projects: [Project] = [project1, project2, project3, project4, project5, project6, project7, project8, project9, project10, project11, project12]
+var projects: [Project] = [project2, project3, project4, project5, project6, project7, project8, project9, project10, project11, project12]
 let ongoingProjects = projects.filter { $0.status == "In progress" || $0.status == "On going" || $0.status == "Status" }
 let closedProjects = projects.filter { $0.status == "Closed" || $0.status == "Status"}
 let holdProjects = projects.filter { $0.status == "Hold" || $0.status == "Status"}
@@ -74,6 +73,7 @@ class ViewController: UIViewController {
 
     func registerTableCells(){
         tableView1.register(UINib(nibName: "TitleTableViewCell", bundle: nil), forCellReuseIdentifier: "TitleTableViewCell")
+        projectTableView.register(UINib(nibName: "projectTableViewCell", bundle: nil), forCellReuseIdentifier: "projectTableViewCell")
     }
     @IBAction func buttonTapped(_ sender: UIButton) {
         conatainerView.isHidden = false
@@ -158,7 +158,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectedBackgroundView = backgroundView
             return cell
         }else{
-            let cell = projectTableView.dequeueReusableCell(withIdentifier: "cell") as! projectTableViewCell
+            let cell = projectTableView.dequeueReusableCell(withIdentifier: "projectTableViewCell") as! projectTableViewCell
             if (sortCount % 4 == 0){
                 let project = projects[indexPath.row]
                 cell.column1.text = project.name
