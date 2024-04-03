@@ -258,6 +258,7 @@
                         <outlet property="conatainerView" destination="nEj-ZY-Wp0" id="igV-xs-3CL"/>
                         <outlet property="mainLbl" destination="esp-7Z-Lwu" id="L3t-em-3e4"/>
                         <outlet property="mainScrollView" destination="v5c-oA-fPR" id="ynM-ak-jxp"/>
+                        <outlet property="newProject" destination="yHr-Ge-gVo" id="Yqg-EL-cFt"/>
                         <outlet property="profileImg" destination="fns-AL-bPl" id="Z5v-xt-Tt8"/>
                         <outlet property="projectTableView" destination="64c-kt-A5f" id="m8e-iY-JXl"/>
                         <outlet property="searchBar" destination="7tr-Ps-YBU" id="4fj-sa-1p5"/>

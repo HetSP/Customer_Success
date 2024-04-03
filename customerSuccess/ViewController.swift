@@ -43,6 +43,7 @@ let holdProjects = projects.filter { $0.status == "Hold" || $0.status == "Status
 class ViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var newProject: UIButton!
     var sortCount = 0
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var tblLbl: UILabel!
@@ -84,24 +85,32 @@ class ViewController: UIViewController {
             viewOpen = true
             conatainerView.frame = CGRect(x: 0, y: 103, width: 0, height: 749)
             tableView1.frame = CGRect(x: 0, y: 0, width: 0, height: 749)
-            UIView.animate(withDuration: 1){
+            newProject.frame = CGRect(x: 8, y: 74.7, width: 0, height: 50)
+            profileImg.frame = CGRect(x: 8, y: 8, width: 0, height: 74)
+            mainLbl.frame = CGRect(x: 98, y: 8, width: 0, height: 24)
+            subLbl.frame = CGRect(x: 98, y: 44, width: 0, height: 20.33)
+            UIView.animate(withDuration: 1.5){
                 self.conatainerView.frame = CGRect(x: 0, y: 103, width: 282, height: 749)
                 self.tableView1.frame = CGRect(x: 0, y: 0, width: 282, height: 749)
+                self.newProject.frame = CGRect(x: 8, y: 74.7, width: self.conatainerView.frame.width - 16, height: 50)
+                self.newProject.titleLabel?.frame = self.newProject.bounds
+                self.profileImg.frame = CGRect(x: 8, y: 8, width: 74, height: 74)
             }
-            profileImg.alpha = 1
-            mainLbl.alpha = 1
-            subLbl.alpha = 1
+            UIView.animate(withDuration: 2.5, delay: 0.8, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5){
+                self.mainLbl.frame = CGRect(x: 98, y: 8, width: 176, height: 24)
+                self.subLbl.frame = CGRect(x: 98, y: 44, width: 176, height: 20.33)
+            }
         }else{
             searchBar.alpha = 1
             mainScrollView.alpha = 1
             conatainerView.isHidden = true
             tableView1.isHidden = true
             viewOpen = false
-            conatainerView.frame = CGRect(x: 0, y: 103, width: 0, height: 749)
-            tableView1.frame = CGRect(x: 0, y: 0, width: 0, height: 749)
+            conatainerView.frame = CGRect(x: 0, y: 103, width: 282, height: 749)
+            tableView1.frame = CGRect(x: 0, y: 0, width: 282, height: 749)
             UIView.animate(withDuration: 1){
-                self.conatainerView.frame = CGRect(x: 0, y: 103, width: 282, height: 749)
-                self.tableView1.frame = CGRect(x: 0, y: 0, width: 282, height: 749)
+                self.conatainerView.frame = CGRect(x: 0, y: 103, width: 0, height: 749)
+                self.tableView1.frame = CGRect(x: 0, y: 0, width: 0, height: 749)
             }
         }
     }
