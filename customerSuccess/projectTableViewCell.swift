@@ -9,7 +9,6 @@ import UIKit
 
 class projectTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var column5: UILabel!
     @IBOutlet weak var column4: UILabel!
     @IBOutlet weak var column3: UILabel!
     @IBOutlet weak var column2: UILabel!

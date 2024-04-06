@@ -43,24 +43,24 @@ class specificProjectViewController: UIViewController, UITextViewDelegate {
         dropButton.layer.borderWidth = 1
         dropButton.layer.borderColor = UIColor.black.cgColor
         let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
-          projectbrief.layer.borderWidth = 0.5
+        projectbrief.layer.borderWidth = 0.5
         projectbrief.layer.borderColor = borderColor.cgColor
-          projectbrief.layer.cornerRadius = 5.0
+        projectbrief.layer.cornerRadius = 5.0
         
         purpose.layer.borderWidth = 0.5
-      purpose.layer.borderColor = borderColor.cgColor
+        purpose.layer.borderColor = borderColor.cgColor
         purpose.layer.cornerRadius = 5.0
         
         goals.layer.borderWidth = 0.5
-      goals.layer.borderColor = borderColor.cgColor
+        goals.layer.borderColor = borderColor.cgColor
         goals.layer.cornerRadius = 5.0
         
         objectives.layer.borderWidth = 0.5
-      objectives.layer.borderColor = borderColor.cgColor
+        objectives.layer.borderColor = borderColor.cgColor
         objectives.layer.cornerRadius = 5.0
         
         projectscope.layer.borderWidth = 0.5
-      projectscope.layer.borderColor = borderColor.cgColor
+        projectscope.layer.borderColor = borderColor.cgColor
         projectscope.layer.cornerRadius = 5.0
         
         projectbrief.text = "Write project brief here"
@@ -201,10 +201,7 @@ extension specificProjectViewController: UITableViewDataSource, UITableViewDeleg
             let cell = tableView.dequeueReusableCell(withIdentifier: "cellthree") as! commonTableViewCell3
             cell.column1.text = escalationLevel[indexPath.row]
             cell.column2.text = name[indexPath.row]
-            cell.column3
-                
-                
-                .text = role[indexPath.row]
+            cell.column3.text = role[indexPath.row]
             return cell
         }
     }

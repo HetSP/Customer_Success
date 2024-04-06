@@ -7,42 +7,34 @@
 
 import UIKit
 
-class Project {
-    var name: String
-    var date: String
-    var status: String
-    var manager: String
-    var members: String
-    
-    init(name: String, date: String, status: String, manager: String, members: String) {
-        self.name = name
-        self.date = date
-        self.status = status
-        self.manager = manager
-        self.members = members
+struct Projects: Codable {
+    let name: String
+    let status: String
+    let startDate: String
+    let associatedManager: AssociatedManager
+    struct AssociatedManager: Codable {
+        let name: String
     }
+        
 }
 
-let project2 = Project(name: "Food on Time", date: "12 Feb 24", status: "On going", manager: "Dipa Manjumdar", members: "6")
-let project3 = Project(name: "2023-01-01", date: "1 Jan 24", status: "Closed", manager: "Dipa Manjumdar", members: "12")
-let project4 = Project(name: "2023-01-01", date: "Placeholder for...", status: "In progress", manager: "Dipa Manjumdar", members: "14")
-let project5 = Project(name: "2023-01-01", date: "Placeholder for...", status: "In progress", manager: "Dipa Manjumdar", members: "4")
-let project6 = Project(name: "2023-01-01", date: "Placeholder for...", status: "In progress", manager: "Rohit Shah", members: "30")
-let project7 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Hold", manager: "Rohit Shah", members: "20")
-let project8 = Project(name: "2023-01-01", date: "Placeholder for...", status: "In progress", manager: "Rohit Shah", members: "13")
-let project9 = Project(name: "2023-01-01", date: "Placeholder for...", status: "In progress", manager: "Rohit Shah", members: "9")
-let project10 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
-let project11 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
-let project12 = Project(name: "2023-01-01", date: "Placeholder for...", status: "Closed", manager: "Rohit Shah", members: "100")
-var projects: [Project] = [project2, project3, project4, project5, project6, project7, project8, project9, project10, project11, project12]
-let ongoingProjects = projects.filter { $0.status == "In progress" || $0.status == "On going" || $0.status == "Status" }
+struct MyProjects: Codable{
+    let data: [Projects]
+}
+
+enum ProjectError: Error {
+    case invalidURL
+    case invalidResponse
+}
+
+var projects: [Projects] = []
+let ongoingProjects = projects.filter { $0.status == "In progress" || $0.status == "On-Going" || $0.status == "Status" }
 let closedProjects = projects.filter { $0.status == "Closed" || $0.status == "Status"}
 let holdProjects = projects.filter { $0.status == "Hold" || $0.status == "Status"}
 
-
 class ViewController: UIViewController {
-    @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var newProject: UIButton!
     var sortCount = 0
     @IBOutlet weak var sortButton: UIButton!
@@ -57,7 +49,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView1: UITableView!
     @IBOutlet weak var conatainerView: UIView!
     var viewOpen:Bool = true
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         registerTableCells()
         self.conatainerView.isHidden = true
@@ -70,12 +62,52 @@ class ViewController: UIViewController {
         profileImg.layer.borderColor = UIColor.white.cgColor
         profileImg.layer.cornerRadius = profileImg.frame.size.height/2
         profileImg.clipsToBounds = true
+        Task {
+            do {
+                projects = try await self.getProjects().data
+                DispatchQueue.main.async {
+                    self.projectTableView.reloadData()
+                }
+            } catch {
+                print("Error fetching projects: \(error)")
+            }
+        }
     }
 
     func registerTableCells(){
         tableView1.register(UINib(nibName: "TitleTableViewCell", bundle: nil), forCellReuseIdentifier: "TitleTableViewCell")
         projectTableView.register(UINib(nibName: "projectTableViewCell", bundle: nil), forCellReuseIdentifier: "projectTableViewCell")
     }
+    
+    func getProjects() async throws -> MyProjects {
+        var components = URLComponents(string: "http://localhost:8000/projects")!
+        components.queryItems = [
+            URLQueryItem(name: "role", value: "Admin"),
+            URLQueryItem(name: "id", value: "auth0|660ea405f5c5f28eda8b900a")
+        ]
+
+        guard let url = components.url else {
+            print("Invalid URL components")
+            throw ProjectError.invalidURL
+        }
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                throw ProjectError.invalidResponse
+            }
+            
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
+            let projects = try decoder.decode(MyProjects.self, from: data)
+            return projects
+        } catch {
+            print("Error fetching projects:", error)
+            throw error
+        }
+    }
+   
     @IBAction func buttonTapped(_ sender: UIButton) {
         conatainerView.isHidden = false
         tableView1.isHidden = false
@@ -121,7 +153,7 @@ class ViewController: UIViewController {
             tblLbl.text = "All projects"
         }
         else if(sortCount % 4 == 1){
-            tblLbl.text = "In progress & On going"
+            tblLbl.text = "In progress & On-Going"
         }
         else if(sortCount % 4 == 2){
             tblLbl.text = "Closed"
@@ -131,6 +163,7 @@ class ViewController: UIViewController {
         }
         projectTableView.reloadData()
     }
+    
     @IBAction func newProjectTapped(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "projectDetailsScreen") as! projectDetailsViewController
         self.navigationController?.pushViewController(vc, animated: true)
@@ -171,9 +204,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             if (sortCount % 4 == 0){
                 let project = projects[indexPath.row]
                 cell.column1.text = project.name
-                cell.column2.text = project.date
+                cell.column2.text = project.startDate
                 cell.column3.text = project.status
-                if project.status == "On going" || project.status == "In progress" {
+                if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
                 } else if project.status == "Closed" {
@@ -186,15 +219,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.column3.backgroundColor = UIColor.white
                         cell.column3.textColor = UIColor.black
                     }
-                cell.column4.text = project.manager
-                cell.column5.text = project.members
+                cell.column4.text = project.associatedManager.name
                 return cell
             }else if(sortCount % 4 == 1){
                 let project = ongoingProjects[indexPath.row]
                 cell.column1.text = project.name
-                cell.column2.text = project.date
+                cell.column2.text = project.startDate
                 cell.column3.text = project.status
-                if project.status == "On going" || project.status == "In progress" {
+                if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
                 } else if project.status == "Closed" {
@@ -207,15 +239,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.column3.backgroundColor = UIColor.white
                         cell.column3.textColor = UIColor.black
                     }
-                cell.column4.text = project.manager
-                cell.column5.text = project.members
+                cell.column4.text = project.associatedManager.name
                 return cell
             }else if(sortCount % 4 == 2){
                 let project = closedProjects[indexPath.row]
                 cell.column1.text = project.name
-                cell.column2.text = project.date
+                cell.column2.text = project.startDate
                 cell.column3.text = project.status
-                if project.status == "On going" || project.status == "In progress" {
+                if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
                 } else if project.status == "Closed" {
@@ -228,15 +259,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.column3.backgroundColor = UIColor.white
                         cell.column3.textColor = UIColor.black
                     }
-                cell.column4.text = project.manager
-                cell.column5.text = project.members
+                cell.column4.text = project.associatedManager.name
                 return cell
             }else{
                 let project = holdProjects[indexPath.row]
                 cell.column1.text = project.name
-                cell.column2.text = project.date
+                cell.column2.text = project.startDate
                 cell.column3.text = project.status
-                if project.status == "On going" || project.status == "In progress" {
+                if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
                 } else if project.status == "Closed" {
@@ -249,8 +279,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.column3.backgroundColor = UIColor.white
                         cell.column3.textColor = UIColor.black
                     }
-                cell.column4.text = project.manager
-                cell.column5.text = project.members
+                cell.column4.text = project.associatedManager.name
                 return cell
             }
         }
@@ -271,6 +300,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView1.selectRow(at: indexPath as IndexPath, animated: false, scrollPosition: .none)
       }
 }
+
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
         let newRed = CGFloat(red)/255
