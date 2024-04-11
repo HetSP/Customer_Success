@@ -116,14 +116,11 @@ class selectProjectMangerViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let result = dateFormatter.string(from: date)
         
-        // Convert UUIDs to strings
         let projectId = UUID().uuidString
         let managerId = UUID().uuidString
         
-        // Assuming projectManager is accessible and has a valid name
         let projectManagerName = projectManager.name
         
-        // Create the project body with converted UUIDs
         let associatedManager = AssociatedManager(_id: managerId, name: projectManagerName, designation: "Manager")
         let body = Project(_id: projectId, name: pName, status: "On-Going", start_date: result, associatedManager: associatedManager)
         

@@ -7,8 +7,34 @@
 
 import UIKit
 
+struct Budget: Codable{
+    var type: String
+    var typeValue: String
+}
+struct ProjectDetails: Codable{
+    var _id: String
+    var name: String
+    var stack: String
+    var scope: String
+    var status: String
+    var startDate: String
+    var overview: String
+    var timeline: String
+    var associatedManager: AssociatedManager
+    var budget: Budget
+}
+
+struct Myproject: Codable{
+    var data: [ProjectDetails]
+}
+enum ProjectDetailsError: Error {
+    case invalidURL
+    case invalidResponse
+}
+var project: [ProjectDetails] = []
 class specificProjectViewController: UIViewController, UITextViewDelegate {
     var projectName = ""
+    var projectId = ""
     @IBOutlet weak var mainLbl: UILabel!
     @IBOutlet weak var objectives: UITextView!
     @IBOutlet weak var goals: UITextView!
@@ -34,7 +60,17 @@ class specificProjectViewController: UIViewController, UITextViewDelegate {
     var role = ["Role","Project Manager","Project Manager","Project Manager"]
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainLbl.text = projectName
+        Task {
+            do {
+                project = try await self.getProjectDetails(projectId: projectId).data
+                DispatchQueue.main.async {
+                    self.mainLbl.text = project[0].name
+                }
+                print(project)
+            } catch {
+                print("Error fetching projects: \(error)")
+            }
+        }
         poview.alpha = 1
         ssview.alpha = 0
         emview.alpha = 0
@@ -151,6 +187,57 @@ class specificProjectViewController: UIViewController, UITextViewDelegate {
             }
         }
     }
+//    func getProjectManagers() async throws -> ProjectDetails {
+//        var components = URLComponents(string: "http://localhost:8000/getManagers")!
+//        components.queryItems = [
+//            URLQueryItem(name: "role_id", value: "rol_qLO42FIvSNsdZEO4")
+//        ]
+//
+//        guard let url = components.url else {
+//            print("Invalid URL components")
+//            throw ProjectDetailsError.invalidURL
+//        }
+//        do {
+//            let (data, response) = try await URLSession.shared.data(from: url)
+//
+//            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+//                throw ProjectDetailsError.invalidResponse
+//            }
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            let project_details = try decoder.decode(ProjectDetails.self, from: data)
+//            return project_details
+//        } catch {
+//            print("Error fetching projects:", error)
+//            throw error
+//        }
+//    }
+    func getProjectDetails(projectId: String) async throws -> Myproject {
+        guard let url = URL(string: "http://localhost:8000/project/\(projectId)/project_details") else {
+            print("Invalid URL")
+            throw ProjectDetailsError.invalidURL
+        }
+
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                throw ProjectDetailsError.invalidResponse
+            }
+
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+            let project_details = try decoder.decode(Myproject.self, from: data)
+            return project_details
+        } catch {
+            print("Error fetching project managers:", error)
+            throw error
+        }
+    }
+
     func textViewDidBeginEditing(_ textView: UITextView) {
             if textView.text == "Write project brief here" || textView.text == "Write project purpose here" || textView.text == "Write project goals here" || textView.text == "Write project objectives here" {
                 textView.text = ""

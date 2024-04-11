@@ -8,6 +8,7 @@
 import UIKit
 
 struct Projects: Codable {
+    let _id: String
     let name: String
     let status: String
     let startDate: String
@@ -289,7 +290,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == projectTableView{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "specificProjectScreen") as! specificProjectViewController
             let project = projects[indexPath.row]
-            vc.projectName = project.name
+            vc.projectId = project._id
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
