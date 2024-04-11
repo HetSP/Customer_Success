@@ -9,13 +9,14 @@ import UIKit
 
 class projectDetailsViewController: UIViewController,UITextViewDelegate {
 
+    @IBOutlet weak var projectName: UITextField!
     @IBOutlet weak var objectives: UITextView!
     @IBOutlet weak var goals: UITextView!
     @IBOutlet weak var purpose: UITextView!
     @IBOutlet weak var projectbrief: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        var borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
+        let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
           projectbrief.layer.borderWidth = 0.5
         projectbrief.layer.borderColor = borderColor.cgColor
           projectbrief.layer.cornerRadius = 5.0
@@ -55,6 +56,7 @@ class projectDetailsViewController: UIViewController,UITextViewDelegate {
     
     @IBAction func continueTapped(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "inviteClientScreen") as! inviteClientViewController
+        vc.pName = projectName.text!
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func textViewDidBeginEditing(_ textView: UITextView) {

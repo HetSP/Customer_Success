@@ -9,7 +9,7 @@ import UIKit
 
 class inviteClientViewController: UIViewController {
 
-    
+    var pName = ""
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var addButton: UIButton!
     var textFieldCount = 0
@@ -41,6 +41,7 @@ class inviteClientViewController: UIViewController {
     }
     @IBAction func sendinviteTapped(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "selectProjectManagerScreen") as! selectProjectMangerViewController
+        vc.pName = pName
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

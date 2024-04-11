@@ -247,7 +247,7 @@
                                 <rect key="frame" x="16" y="0.0" width="87" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="Screenshot 2024-03-04 at 11.25.06 AM"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal" catalog="system"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PvK-Yd-ztB"/>
                                 </connections>
@@ -421,6 +421,7 @@
                     <connections>
                         <outlet property="goals" destination="Jn9-yF-nYX" id="ErB-7s-9F6"/>
                         <outlet property="objectives" destination="7Wi-nq-pJT" id="dxO-5F-AfE"/>
+                        <outlet property="projectName" destination="mPk-jx-uyl" id="fIf-n1-R8A"/>
                         <outlet property="projectbrief" destination="BIR-WR-fL4" id="GXW-Lo-BQk"/>
                         <outlet property="purpose" destination="CEV-9d-03T" id="yHb-Jz-s3m"/>
                     </connections>
@@ -1382,7 +1383,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Screenshot 2024-03-04 at 11.25.06 AM" width="51" height="52"/>
+        <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

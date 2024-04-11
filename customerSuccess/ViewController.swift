@@ -29,7 +29,7 @@ enum ProjectError: Error {
 
 var projects: [Projects] = []
 let ongoingProjects = projects.filter { $0.status == "In progress" || $0.status == "On-Going" || $0.status == "Status" }
-let closedProjects = projects.filter { $0.status == "Closed" || $0.status == "Status"}
+let CompletedProjects = projects.filter { $0.status == "Completed" || $0.status == "Status"}
 let holdProjects = projects.filter { $0.status == "Hold" || $0.status == "Status"}
 
 class ViewController: UIViewController {
@@ -156,7 +156,7 @@ class ViewController: UIViewController {
             tblLbl.text = "In progress & On-Going"
         }
         else if(sortCount % 4 == 2){
-            tblLbl.text = "Closed"
+            tblLbl.text = "Completed"
         }
         else{
             tblLbl.text = "Hold"
@@ -182,7 +182,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                         return ongoingProjects.count
                     }
                     else if(sortCount % 4 == 2){
-                        return closedProjects.count
+                        return CompletedProjects.count
                     }
                     else{
                         return holdProjects.count
@@ -209,7 +209,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
-                } else if project.status == "Closed" {
+                } else if project.status == "Completed" {
                         cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
                     cell.column3.textColor = UIColor.white
                     } else if project.status == "Hold" {
@@ -229,7 +229,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
-                } else if project.status == "Closed" {
+                } else if project.status == "Completed" {
                         cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
                     cell.column3.textColor = UIColor.white
                     } else if project.status == "Hold" {
@@ -242,14 +242,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.column4.text = project.associatedManager.name
                 return cell
             }else if(sortCount % 4 == 2){
-                let project = closedProjects[indexPath.row]
+                let project = CompletedProjects[indexPath.row]
                 cell.column1.text = project.name
                 cell.column2.text = project.startDate
                 cell.column3.text = project.status
                 if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
-                } else if project.status == "Closed" {
+                } else if project.status == "Completed" {
                         cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
                     cell.column3.textColor = UIColor.white
                     } else if project.status == "Hold" {
@@ -269,7 +269,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 if project.status == "On-Going" || project.status == "In progress" {
                     cell.column3.backgroundColor = UIColor(red: 37, green: 135, blue: 79)
                     cell.column3.textColor = UIColor.white
-                } else if project.status == "Closed" {
+                } else if project.status == "Completed" {
                         cell.column3.backgroundColor = UIColor(red: 216, green: 58, blue: 82)
                     cell.column3.textColor = UIColor.white
                     } else if project.status == "Hold" {

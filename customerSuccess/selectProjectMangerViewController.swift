@@ -8,7 +8,7 @@
 import UIKit
 
 struct ProjectManager: Codable{
-    let name: String
+    var name: String
 }
 
 enum ProjectManagerError: Error {
@@ -16,10 +16,23 @@ enum ProjectManagerError: Error {
     case invalidResponse
 }
 
+struct AssociatedManager: Codable {
+    var _id: String
+    var name: String
+    var designation: String
+}
+struct Project: Codable {
+    var _id: String
+    var name: String
+    var status: String
+    var start_date: String
+    var associatedManager: AssociatedManager
+}
 class selectProjectMangerViewController: UIViewController {
     @IBOutlet weak var dropButton: UIButton!
     @IBOutlet weak var tblView: UITableView!
-    
+    var pName = ""
+    var projectManager = ProjectManager(name: "")
     var pm: [ProjectManager] = []
     override func viewDidLoad() {
         tblView.isHidden = true
@@ -87,7 +100,62 @@ class selectProjectMangerViewController: UIViewController {
         }
     }
     
+    func postProject() {
+        guard let url = URL(string: "http://localhost:8000/addProject") else {
+            return
+        }
+        
+        print("Making api call...")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let result = dateFormatter.string(from: date)
+        
+        // Convert UUIDs to strings
+        let projectId = UUID().uuidString
+        let managerId = UUID().uuidString
+        
+        // Assuming projectManager is accessible and has a valid name
+        let projectManagerName = projectManager.name
+        
+        // Create the project body with converted UUIDs
+        let associatedManager = AssociatedManager(_id: managerId, name: projectManagerName, designation: "Manager")
+        let body = Project(_id: projectId, name: pName, status: "On-Going", start_date: result, associatedManager: associatedManager)
+        
+        do {
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase // Use snake_case for keys if needed
+            let jsonData = try encoder.encode(body)
+            
+            request.httpBody = jsonData
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "Unknown error")
+                    return
+                }
+                
+                do {
+                    let response = try JSONDecoder().decode(Project.self, from: data)
+                    print("Success:\(response)")
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            task.resume()
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     @IBAction func continueTapped(_ sender: UIButton) {
+        postProject()
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "homeScreen") as! ViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -105,7 +173,8 @@ extension selectProjectMangerViewController: UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dropButton.setTitle("\(pm[indexPath.row])", for: .normal)
+        dropButton.setTitle("\(pm[indexPath.row].name)", for: .normal)
+        projectManager.name = pm[indexPath.row].name
         animate(toggle: false)
     }
 }
